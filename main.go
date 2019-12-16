@@ -41,6 +41,42 @@ func getProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&product)
 }
 
+func createProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewDecoder(r.Body).Decode(&product)
+	db.Create(&product)
+	json.NewEncoder(w).Encode(&product)
+}
+
+func updateProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	var params = mux.Vars(r)
+
+	w.Header().Set("Content-Type", "application/json")
+
+	db.First(&product, params["id"])
+	db.Update(&product)
+
+	json.NewDecoder(r.Body).Decode(&product)
+	json.NewEncoder(w).Encode(&product)
+}
+
+func deleteProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	var params = mux.Vars(r)
+
+	w.Header().Set("Content-Type", "application/json")
+	db.First(&product, params["id"])
+	db.Delete(&product)
+
+	var products []Product
+	db.Find(&products)
+	json.NewEncoder(w).Encode(&products)
+}
+
 func main() {
 	r := mux.NewRouter()
 
@@ -58,6 +94,9 @@ func main() {
 
 	r.HandleFunc("/api/products", getProducts).Methods("GET")
 	r.HandleFunc("/api/products/{id}", getProduct).Methods("GET")
+	r.HandleFunc("/api/products", createProduct).Methods("POST")
+	r.HandleFunc("/api/products/{id}", updateProduct).Methods("PUT")
+	r.HandleFunc("/api/products/{id}", deleteProduct).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
