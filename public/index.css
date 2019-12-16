@@ -1,0 +1,93 @@
+:root {
+  --primary-color: #FF6700;
+  --secondary-color: white;
+  --accent-color: #313E50;
+  --background-one: #313E50; 
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 18px;
+}
+
+a {
+  color: var(--accent-color);
+}
+
+section {
+  padding: 50px;
+}
+
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: var(--primary-color);
+  color: var(--secondary-color); 
+  padding: 10px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.section-one {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.section-two {
+  background: var(--background-one);
+  color: var(--secondary-color);
+}
+
+.button {
+  padding: 2px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+  text-decoration: none;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-color);
+  background: var(--secondary-color);
+  word-spacing: -5px;
+}
+
+.button:hover, .button:focus {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.button:active {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.section-two .button {
+  border: 1px solid var(--primary-color);
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.section-two .button:hover, .button:focus {
+  border: 1px solid var(--background-one); 
+  color: var(--accent-color);
+  background: var(--primary-color);
+}
+
+.section-two a {
+  color: var(--primary-color)
+}

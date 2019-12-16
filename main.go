@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
+
 	"github.com/gorilla/mux"
 
 	"github.com/jinzhu/gorm"
@@ -98,5 +100,5 @@ func main() {
 	r.HandleFunc("/api/products/{id}", updateProduct).Methods("PUT")
 	r.HandleFunc("/api/products/{id}", deleteProduct).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS()(r)))
 }
