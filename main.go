@@ -23,11 +23,22 @@ var db *gorm.DB
 var err error
 
 func getProducts(w http.ResponseWriter, r *http.Request) {
+	var products []Product
+
 	w.Header().Set("Content-Type", "application/json")
 
-	var products []Product
 	db.Find(&products)
 	json.NewEncoder(w).Encode(&products)
+}
+
+func getProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	var params = mux.Vars(r)
+
+	w.Header().Set("Content-Type", "application/json")
+
+	db.First(&product, params["id"])
+	json.NewEncoder(w).Encode(&product)
 }
 
 func main() {
@@ -46,6 +57,7 @@ func main() {
 	// product3 := Product{Code: "E687", Price: 450, ImageURL: "images.com/toolset"}
 
 	r.HandleFunc("/api/products", getProducts).Methods("GET")
+	r.HandleFunc("/api/products/{id}", getProduct).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
