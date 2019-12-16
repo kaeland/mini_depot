@@ -1,6 +1,6 @@
 # Mini Depot 
 
-> An lite example of a store front REST API 
+> An lite example of a storefront REST API 
 
 ## Languages 
   - Go 
